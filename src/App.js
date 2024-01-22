@@ -19,6 +19,10 @@ import { ReactComponent as ButtonIcon } from "./assets/icons/robot.svg";
 import config from "./bots/docsbot/config";
 import MessageParser from "./bots/docsbot/MessageParser";
 import ActionProvider from "./bots/docsbot/ActionProvider";
+// import config from "./bots/skybot/config";
+// import MessageParser from "./bots/skybot/MessageParser";
+// import ActionProvider from "./bots/skybot/ActionProvider";
+
 
 import "./App.css";
 
@@ -28,10 +32,10 @@ function App() {
   return (
     <div className="App">
       <GradientBackground>
-        <Menu />
+        {/* <Menu />
         <Logo style={{ paddingTop: "40px", height: "150px", width: "150px" }} />
         <h1 className="app-header">React-chatbot-kit</h1>
-        <div className="app-npm-install">npm install react-chatbot-kit</div>
+        <div className="app-npm-install">npm install react-chatbot-kit</div> */}
         <div className="app-chatbot-container">
           <ConditionallyRender
             ifTrue={showChatbot}
@@ -52,7 +56,7 @@ function App() {
           <ButtonIcon className="app-chatbot-button-icon" />
         </button>
 
-        <div className="app-overview">
+        {/* <div className="app-overview">
           <h2 className="app-header">Overview</h2>
           <p className="app-paragraph">
             The chatbot works by importing it and giving it a messageparser, a
@@ -76,15 +80,15 @@ function App() {
           >
             Go to gist
           </a>
-        </div>
+        </div> */}
       </GradientBackground>
-      <ConfigSection />
+      {/* <ConfigSection />
       <MessageParserSection />
       <ActionProviderSection />
       <WidgetSection />
       <SaveDialogueSection />
       <TutorialSection />
-      <ExamplesSection />
+      <ExamplesSection /> */}
     </div>
   );
 }

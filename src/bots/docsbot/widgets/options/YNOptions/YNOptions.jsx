@@ -1,14 +1,14 @@
 import React from "react";
 import Options from "../Options/Options";
 
-const GeneralOptions = (props) => {
+const YNOptions = (props) => {
   const options = [
     {
-      name: "查詢車輛可用率",
+      name: "是",
       handler: props.actionProvider.handleMessageParserDocs,
       id: 1,
     },{
-      name: "查詢車輛SOP",
+      name: "否",
       handler: props.actionProvider.handleMessageParserDocs,
       id: 1,
     },
@@ -32,4 +32,4 @@ const GeneralOptions = (props) => {
   return <Options options={options} />;
 };
 
-export default GeneralOptions;
+export default YNOptions;

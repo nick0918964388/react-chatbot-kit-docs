@@ -5,15 +5,17 @@ import { ReactComponent as OverviewSVG } from "../../../../assets/img/bot-overvi
 
 import styles from "./Overview.module.css";
 import GeneralOptions from "../options/GeneralOptions/GeneralOptions";
+import YNOptions from "../options/YNOptions/YNOptions";
 
 const Overview = (props) => {
   return (
     <div className={styles.overview}>
       <FadeIn left by={250}>
-        <OverviewSVG className={styles.overviewSVG} />
+        {/* <OverviewSVG className={styles.overviewSVG} /> */}
       </FadeIn>
 
       <GeneralOptions actionProvider={props.actionProvider} />
+      <YNOptions actionProvider={props.actionProvider} />
     </div>
   );
 };

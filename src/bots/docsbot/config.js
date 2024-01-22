@@ -7,7 +7,7 @@ import ActionProviderDocs from "./widgets/docs/ActionProviderDocs/ActionProvider
 import Config from "./widgets/docs/Config/Config";
 import WidgetDocs from "./widgets/docs/WidgetDocs/WidgetDocs";
 
-const botName = "DocsBot";
+const botName = "智慧助理";
 
 const config = {
   botName: botName,
@@ -22,16 +22,22 @@ const config = {
   },
   initialMessages: [
     createChatBotMessage(
-      `Hi I'm ${botName}. I’m here to help you explain how I work.`
-    ),
-    createChatBotMessage(
-      "Here's a quick overview over what I need to function. ask me about the different parts to dive deeper.",
+      `Hi 我是 ${botName}. 請提供相關問題，我將盡量提供解答`,
       {
         withAvatar: false,
-        delay: 500,
+        // delay: 500,
         widget: "overview",
       }
-    ),
+    ),    
+    // createChatBotMessage(
+    //   // "Here's a quick overview over what I need to function. ask me about the different parts to dive deeper.",
+    //   "快速選擇",
+    //   {
+    //     withAvatar: false,
+    //     // delay: 500,
+    //     widget: "overview",
+    //   }
+    // ),
   ],
   state: {
     gist: "",

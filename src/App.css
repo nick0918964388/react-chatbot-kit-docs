@@ -16,8 +16,16 @@ li {
   line-height: 1.5;
   margin: 1rem 0;
 }
+/* 客製css */
 
-.app-chatbot-container {
+.react-chatbot-kit-chat-bot-message{
+  margin-left: 0;
+}
+.react-chatbot-kit-chat-container {
+  width: 500px;
+}
+.app-chatbot-container { 
+  
   margin: 40px 0;
   display: flex;
   justify-content: center;

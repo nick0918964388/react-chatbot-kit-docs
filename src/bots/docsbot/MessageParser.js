@@ -7,10 +7,9 @@ class MessageParser {
     const lowerCase = message.toLowerCase();
 
     if (
-      lowerCase.includes("messageparser") ||
-      lowerCase.includes("parse") ||
-      lowerCase.includes("parser") ||
-      lowerCase.includes("message parser")
+      lowerCase.includes("可用率") ||
+      lowerCase.includes("車輛可用率") ||
+      lowerCase.includes("車輛相關可用")
     ) {
       return this.actionProvider.handleMessageParserDocs();
     }
@@ -26,7 +25,7 @@ class MessageParser {
     if (lowerCase.includes("widget")) {
       return this.actionProvider.handleWidgetDocs();
     }
-
+    //不了解的問題回到greeing
     return this.actionProvider.handleDefault();
   };
 }

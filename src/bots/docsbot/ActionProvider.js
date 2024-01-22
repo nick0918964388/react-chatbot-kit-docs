@@ -6,8 +6,13 @@ class ActionProvider {
 
   handleMessageParserDocs = () => {
     const messages = this.createChatBotMessage(
-      "The message parser controls how the bot reads input and decides which action to invoke.",
-      { widget: "messageParser", withAvatar: true }
+      "以下是車輛可用率：臺鐵公司累計至2024/01/22止，車輛數： 3197台，可用數： 2681台，可用率： 83%"
+      ,
+      // { widget: "messageParser", withAvatar: true }
+      {
+        withAvatar: true,
+        widget: "overview",
+      }
     );
 
     this.addMessageToBotState(messages);
@@ -44,11 +49,11 @@ class ActionProvider {
 
   handleDefault = () => {
     const message = this.createChatBotMessage(
-      "How can I help? Here is the overview.",
-      {
-        withAvatar: true,
-        widget: "overview",
-      }
+      "請提供的你的問題，我才能進行回答",
+      // {
+      //   withAvatar: true,
+      //   widget: "overview",
+      // }
     );
 
     this.addMessageToBotState(message);
