@@ -1,19 +1,18 @@
+import SharedState from './SharedState';
+
 class MessageParser {
   constructor(actionProvider) {
     this.actionProvider = actionProvider;
   }
 
-  handleData = (dataFromChild) => {
-    // 處理來自子組件的數據
-  };
 
   parse = (message) => {
     const lowerCase = message.toLowerCase();
     
-    const currentState = this.actionProvider.getCurrentState();
-
+    // const currentState = this.actionProvider.getCurrentState();
+    console.log(SharedState.data)
     // 檢查是否處於特定流程中
-    if (currentState!= undefined && currentState.currentId === '故障通報') {
+    if (SharedState.data.currentFunction === '故障通報') {
       this.actionProvider.handleActionGenerateFNM('故障通報');
 
     } else {
@@ -25,7 +24,7 @@ class MessageParser {
         return this.actionProvider.handleMessageParserDocs();
       }
       if (lowerCase.includes('故障通報')) {
-        this.actionProvider.handleActionGenerateFNM('故障通報');
+        return this.actionProvider.handleActionGenerateFNM('故障通報');
   
       } 
       

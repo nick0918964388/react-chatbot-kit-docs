@@ -1,51 +1,61 @@
+import SharedState from './SharedState';
+
 class ActionProvider {
   constructor(createChatBotMessage, setStateFunc) {
     this.createChatBotMessage = createChatBotMessage;
     this.setState = setStateFunc;    
-    // 初始化狀態
-    this.state = {
-      currentId: null,
-      currentStage: 0,
-    };
   }
 
   getCurrentState = () => {
-    return { id: this.state.currentId, stage: this.state.currentStage };
+    return { id: SharedState.data.currentFunction, stage: SharedState.data.currentStage };
   };
 
-  handleMessageParserDocs = () => {
-    const messages = this.createChatBotMessage(
-      "以下是車輛可用率：臺鐵公司累計至2024/01/22止，車輛數： 3197台，可用數： 2681台，可用率： 83%"
-      ,
-      // { widget: "messageParser", withAvatar: true }
-      {
-        withAvatar: true,
-        widget: "overview",
+  handleMessageParserDocs = (ynresult) => {
+    let messages
+    if (SharedState.data.currentFunction === '故障通報' && ynresult) {      
+      if(ynresult){
+        //故障通報開單確認
+        messages = this.createChatBotMessage(
+          "故障通報已開單完成，單號：113-SR-00000213，請點此連結進入系統查看"
+        );
+        this.clearShareState();
+      }else{
+        //不開單,回到首頁
+        this.handleDefault();
       }
-    );
+    }else {
+        messages = this.createChatBotMessage(
+        "以下是車輛可用率：臺鐵公司累計至2024/01/22止，車輛數： 3197台，可用數： 2681台，可用率： 83%"
+        ,
+        // { widget: "messageParser", withAvatar: true }
+        {
+          withAvatar: true,
+          widget: "overview",
+        }
+      );
+    }
+    
 
     this.addMessageToBotState(messages);
   };
   handleActionGenerateFNM = (id) => {
-    this.state.currentId = id;
-    const nextStage = this.state.currentStage + 1;
+    SharedState.data.currentFunction = id;
+    const nextStage = SharedState.data.currentStage + 1;
     let messages;
 
-    if (nextStage === 1) {
-      // 第一階段：輸入車號
-      messages = this.createChatBotMessage("請輸入車號", { withAvatar: true });
-    } else if (nextStage === 2) {
-      // 第二階段：輸入地點
-      messages = this.createChatBotMessage("請輸入地點", { withAvatar: true });
+     // 查找匹配的 function 和 stage
+    const functionData = SharedState.functions.find(f => f.function === id && f.stage === nextStage);
+    if (functionData) {
+      // 如果找到匹配的條目，則使用該條目的問題
+      messages = this.createChatBotMessage(functionData.question, { widget: functionData.widget, withAvatar: true });
+    } else {
+      // 如果沒有匹配的條目，可以選擇使用默認消息或進行其他處理
+      messages = this.createChatBotMessage("你輸入的故障通報資訊為.........是否確認要開單", { widget: "ynoption",withAvatar: true });
     }
     // 更新階段
-    this.state.currentStage = nextStage;
-    // 更新 currentId 和 currentStage
-    const newState = {
-      currentId: id,
-      currentStage: this.state.currentStage + 1,
-    };
-    this.addMessageToBotState(messages,newState);
+    SharedState.data.currentStage = nextStage;
+    // 更新 currentId 和 currentStage    
+    this.addMessageToBotState(messages);
   };
 
   handleActionProviderDocs = () => {
@@ -86,9 +96,12 @@ class ActionProvider {
       // }
     );
 
-    this.addMessageToBotState(message);
+    this.addMessageToBotState(message);    
   };
-
+  clearShareState = () => {
+    SharedState.data.currentFunction = "";
+    SharedState.data.currentStage = 0;
+  };
   addMessageToBotState = (messages, newState) => {
     if (Array.isArray(messages)) {
       this.setState((state) => ({
@@ -96,8 +109,7 @@ class ActionProvider {
         ...newState,
         messages: [...state.messages, ...messages],
         gist: "",
-        infoBox: "",
-        currentId:"故障通報"
+        infoBox: ""
       }));
     } else {
       this.setState((state) => ({
@@ -105,22 +117,11 @@ class ActionProvider {
         ...newState,
         messages: [...state.messages, messages],
         gist: "",
-        infoBox: "",
-        currentId:"故障通報"
-      }), () => {
-        console.log("New state: ", this.state);
-      });
+        infoBox: ""
+      }));
     }
   };
 
-  getCurrentState = () => {
-    this.setState(state => {
-      console.log(state)
-      // Perform your tasks here
-      
-      return state
-  })
-  };
 }
 
 

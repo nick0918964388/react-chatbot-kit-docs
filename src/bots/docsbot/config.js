@@ -7,6 +7,8 @@ import ActionProviderDocs from "./widgets/docs/ActionProviderDocs/ActionProvider
 import Config from "./widgets/docs/Config/Config";
 import WidgetDocs from "./widgets/docs/WidgetDocs/WidgetDocs";
 import YNOptions from "./widgets/options/YNOptions/YNOptions";
+import CarOptions from "./widgets/options/CarOptions/CarOptions";
+import CarSelector from "./widgets/CarSelector/CarSelector";
 
 const botName = "智慧助理";
 
@@ -44,10 +46,17 @@ const config = {
     gist: "",
     infoBox: "",
     currentId:"",
-    currentStage : 0
+    currentStage : 0,
+    airports: [],
+    selectedcar: { iata: "請選擇", nameCompact: "請選擇" },
   },
   customComponents: {},
   widgets: [
+    {
+      widgetName: "carSelector",
+      widgetFunc: (props) => <CarSelector {...props} />,
+      mapStateToProps: ["selectedcar", "airports"],
+    },
     {
       widgetName: "overview",
       widgetFunc: (props) => <Overview {...props} />,
@@ -56,6 +65,10 @@ const config = {
       widgetName: "ynoption",
       widgetFunc: (props) => <YNOptions {...props} />,
       mapStateToProps: ["gist"],
+    },{
+      widgetName: "caroption",
+      widgetFunc: (props) => <CarOptions {...props} />,
+      mapStateToProps: ["gist","infoBox"],
     },
     {
       widgetName: "messageParser",

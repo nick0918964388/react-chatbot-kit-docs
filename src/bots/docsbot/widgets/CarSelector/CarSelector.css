@@ -1,0 +1,40 @@
+.Car-selector-container {
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 5px;
+  margin: -5px 0px;
+  font-size: 0.9rem;
+}
+
+.Car-selector-heading {
+  font-size: 1rem;
+  margin: 0 0 8px 0;
+}
+
+.Car-button-confirm {
+  display: block;
+  margin: 12px auto;
+  background-color: #fff;
+  padding: 8px;
+  border-radius: 5px;
+  font-weight: bold;
+  color: #2898ec;
+  width: 120px;
+  border: none;
+}
+
+.Car-selector {  
+  outline-offset: -2px;
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    list-style: none;
+    outline: 2px solid transparent;
+    transition: background-color 70ms cubic-bezier(.2,0,.38,.9);
+}
