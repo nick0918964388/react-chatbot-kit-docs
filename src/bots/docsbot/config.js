@@ -6,6 +6,7 @@ import MessageParserDocs from "./widgets/docs/MessageParserDocs/MessageParserDoc
 import ActionProviderDocs from "./widgets/docs/ActionProviderDocs/ActionProviderDocs";
 import Config from "./widgets/docs/Config/Config";
 import WidgetDocs from "./widgets/docs/WidgetDocs/WidgetDocs";
+import YNOptions from "./widgets/options/YNOptions/YNOptions";
 
 const botName = "智慧助理";
 
@@ -42,6 +43,8 @@ const config = {
   state: {
     gist: "",
     infoBox: "",
+    currentId:"",
+    currentStage : 0
   },
   customComponents: {},
   widgets: [
@@ -49,11 +52,15 @@ const config = {
       widgetName: "overview",
       widgetFunc: (props) => <Overview {...props} />,
       mapStateToProps: ["gist"],
+    },{
+      widgetName: "ynoption",
+      widgetFunc: (props) => <YNOptions {...props} />,
+      mapStateToProps: ["gist"],
     },
     {
       widgetName: "messageParser",
       widgetFunc: (props) => <MessageParserDocs {...props} />,
-      mapStateToProps: ["gist", "infoBox"],
+      mapStateToProps: ["gist", "infoBox","currentId","currentStage"],
     },
     {
       widgetName: "actionProviderDocs",

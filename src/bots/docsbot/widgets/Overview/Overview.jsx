@@ -14,8 +14,7 @@ const Overview = (props) => {
         {/* <OverviewSVG className={styles.overviewSVG} /> */}
       </FadeIn>
 
-      <GeneralOptions actionProvider={props.actionProvider} />
-      <YNOptions actionProvider={props.actionProvider} />
+      <GeneralOptions actionProvider={props.actionProvider} />      
     </div>
   );
 };

@@ -5,12 +5,12 @@ const GeneralOptions = (props) => {
   const options = [
     {
       name: "查詢車輛可用率",
-      handler: props.actionProvider.handleMessageParserDocs,
+      handler:  () => props.actionProvider.handleMessageParserDocs(1),
       id: 1,
     },{
-      name: "查詢車輛SOP",
-      handler: props.actionProvider.handleMessageParserDocs,
-      id: 1,
+      name: "故障通報立案",
+      handler: () => props.actionProvider.handleActionGenerateFNM('故障通報'),
+      id: 2,
     },
     // {
     //   name: "config",

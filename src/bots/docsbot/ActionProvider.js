@@ -1,8 +1,17 @@
 class ActionProvider {
   constructor(createChatBotMessage, setStateFunc) {
     this.createChatBotMessage = createChatBotMessage;
-    this.setState = setStateFunc;
+    this.setState = setStateFunc;    
+    // 初始化狀態
+    this.state = {
+      currentId: null,
+      currentStage: 0,
+    };
   }
+
+  getCurrentState = () => {
+    return { id: this.state.currentId, stage: this.state.currentStage };
+  };
 
   handleMessageParserDocs = () => {
     const messages = this.createChatBotMessage(
@@ -16,6 +25,27 @@ class ActionProvider {
     );
 
     this.addMessageToBotState(messages);
+  };
+  handleActionGenerateFNM = (id) => {
+    this.state.currentId = id;
+    const nextStage = this.state.currentStage + 1;
+    let messages;
+
+    if (nextStage === 1) {
+      // 第一階段：輸入車號
+      messages = this.createChatBotMessage("請輸入車號", { withAvatar: true });
+    } else if (nextStage === 2) {
+      // 第二階段：輸入地點
+      messages = this.createChatBotMessage("請輸入地點", { withAvatar: true });
+    }
+    // 更新階段
+    this.state.currentStage = nextStage;
+    // 更新 currentId 和 currentStage
+    const newState = {
+      currentId: id,
+      currentStage: this.state.currentStage + 1,
+    };
+    this.addMessageToBotState(messages,newState);
   };
 
   handleActionProviderDocs = () => {
@@ -67,6 +97,7 @@ class ActionProvider {
         messages: [...state.messages, ...messages],
         gist: "",
         infoBox: "",
+        currentId:"故障通報"
       }));
     } else {
       this.setState((state) => ({
@@ -75,9 +106,22 @@ class ActionProvider {
         messages: [...state.messages, messages],
         gist: "",
         infoBox: "",
-      }));
+        currentId:"故障通報"
+      }), () => {
+        console.log("New state: ", this.state);
+      });
     }
   };
+
+  getCurrentState = () => {
+    this.setState(state => {
+      console.log(state)
+      // Perform your tasks here
+      
+      return state
+  })
+  };
 }
+
 
 export default ActionProvider;
