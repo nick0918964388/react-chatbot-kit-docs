@@ -50,7 +50,13 @@ class ActionProvider {
       messages = this.createChatBotMessage(functionData.question, { widget: functionData.widget, withAvatar: true });
     } else {
       // 如果沒有匹配的條目，可以選擇使用默認消息或進行其他處理
-      messages = this.createChatBotMessage("你輸入的故障通報資訊為.........是否確認要開單", { widget: "ynoption",withAvatar: true });
+      
+      messages = this.createChatBotMessage(`你輸入的故障通報資訊為，
+      車號：${SharedState.selectedcar}、
+      地點為${SharedState.selectedplace}、
+      車次為${SharedState.selectedtrainno}、
+      故障描述為${SharedState.selecteddescription}，
+      是否正確且確認要開單`, { widget: "ynoption",withAvatar: true });
     }
     // 更新階段
     SharedState.data.currentStage = nextStage;

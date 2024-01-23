@@ -3,12 +3,13 @@ import Options from "../Options/Options";
 
 const GeneralOptions = (props) => {
   const options = [
-    {
-      name: "查詢車輛可用率",
-      handler:  () => props.actionProvider.handleMessageParserDocs(1),
-      id: 1,
-    },{
-      name: "故障通報立案",
+    // {
+    //   name: "查詢車輛可用率",
+    //   handler:  () => props.actionProvider.handleMessageParserDocs(1),
+    //   id: 1,
+    // }
+    ,{
+      name: "本日故障通報立案",
       handler: () => props.actionProvider.handleActionGenerateFNM('故障通報'),
       id: 2,
     },

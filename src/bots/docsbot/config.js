@@ -8,7 +8,8 @@ import Config from "./widgets/docs/Config/Config";
 import WidgetDocs from "./widgets/docs/WidgetDocs/WidgetDocs";
 import YNOptions from "./widgets/options/YNOptions/YNOptions";
 import CarOptions from "./widgets/options/CarOptions/CarOptions";
-import CarSelector from "./widgets/CarSelector/CarSelector";
+import CarSelector from "./widgets/Selector/CarSelector/CarSelector";
+import PlaceSelector from "./widgets/Selector/PlaceSelector/PlaceSelector";
 
 const botName = "智慧助理";
 
@@ -25,7 +26,7 @@ const config = {
   },
   initialMessages: [
     createChatBotMessage(
-      `Hi 我是 ${botName}. 請提供相關問題，我將盡量提供解答`,
+      `Hi 我是 ${botName}. 請問有甚麼可以提供協助的?`,
       {
         withAvatar: false,
         // delay: 500,
@@ -49,13 +50,18 @@ const config = {
     currentStage : 0,
     airports: [],
     selectedcar: { iata: "請選擇", nameCompact: "請選擇" },
+    selectedplace: { iata: "請選擇", nameCompact: "請選擇" },
   },
   customComponents: {},
   widgets: [
     {
       widgetName: "carSelector",
       widgetFunc: (props) => <CarSelector {...props} />,
-      mapStateToProps: ["selectedcar", "airports"],
+      mapStateToProps: ["selectedcar", "infoBox"],
+    },{
+      widgetName: "placeSelector",
+      widgetFunc: (props) => <PlaceSelector {...props} />,
+      mapStateToProps: ["selectedplace", "infoBox"],
     },
     {
       widgetName: "overview",

@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { ConditionallyRender } from "react-util-kit";
-import InformationBox from "../InformationBox/InformationBox";
-import styles from "../docs/MessageParserDocs/MessageParserDocs.module.css";
-
+import InformationBox from "../../InformationBox/InformationBox";
+import styles from "../../docs/MessageParserDocs/MessageParserDocs.module.css";
+import SharedState from '../../../SharedState';
 import "./CarSelector.css";
 
-const CarSelector = ({ selectedcar, setState, actionProvider }) => {
+const CarSelector = ({ selectedcar, infoBox,setState, actionProvider }) => {
   const [displaySelector, toggleDisplaySelector] = useState(true);
   const [Cars, setCars] = useState([]);
-  const [showMessageParserInfoBox, setshowMessageParserInfoBox] = useState([true]);
 
   useEffect(() => {
     setState((state) => ({
@@ -16,7 +15,7 @@ const CarSelector = ({ selectedcar, setState, actionProvider }) => {
       infoBox: "messageParser",
     }));
   }, [setState]);
-
+  const showMessageParserInfoBox = infoBox === "messageParser";
   const CarOptions = [
     {
       iata: "請選擇",
@@ -34,18 +33,23 @@ const CarSelector = ({ selectedcar, setState, actionProvider }) => {
       nameCompact: "EMU903",
     }
   ];
+  
 
   useEffect(() => {
     setCars(CarOptions);
   }, []);
 
   const handleSubmit = (e) => {
-    setState((state) => ({
-      ...state,
-      selectedcar: Cars.find(
-        (Car) => Car.iata === e.target.value
-      ),
-    }));
+    console.log("Target element:", e.target); // 应该是 select 元素
+    console.log("Selected value:", e.target.value); // 应该是选中的 option 的 value
+    const selectedValue = e?.target?.value;
+    if (selectedValue) {
+      setState((state) => ({
+        ...state,
+        selectedcar: Cars.find((Car) => Car.iata === selectedValue),
+      }));
+      SharedState.selectedcar = selectedValue;
+    }
   };
 
   const handleConfirm = () => {
@@ -66,17 +70,7 @@ const CarSelector = ({ selectedcar, setState, actionProvider }) => {
   };
   
   return (
-    // <div>
-    //   <h2 className="Car-selector-heading">Car</h2>
-    // <select
-    //           className="Car-selector"
-    //           value={selectedcar.iata}
-    //           onChange={handleSubmit}
-    //         >
-    //           {createCarOptions()}
-    //         </select>
-    // </div>
-    <div className="Car-selector-container">
+    <div className="selector-container">
       <ConditionallyRender
         ifTrue={displaySelector}
         show={
@@ -106,12 +100,15 @@ const CarSelector = ({ selectedcar, setState, actionProvider }) => {
       <ConditionallyRender
         ifTrue={showMessageParserInfoBox}
         show={
-          <InformationBox setState={setState}>
+         <InformationBox setState={setState}>
+            <h2>Debug</h2>
             <p className={styles.infoBoxParagraph}>
-              車輛可用率的計算：
+            目前的功能模組：`{SharedState.data.currentFunction}`
             </p>
             <p className={styles.infoBoxParagraph}>
-              
+            目前的步驟：`{SharedState.data.currentStage}`
+            目前的車輛：`{SharedState.selectedcar}`
+            目前的地點：`{SharedState.selectedplace}`
             </p>
           </InformationBox>
         }

@@ -13,6 +13,11 @@ class MessageParser {
     console.log(SharedState.data)
     // 檢查是否處於特定流程中
     if (SharedState.data.currentFunction === '故障通報') {
+      if(SharedState.data.currentStage===3 ){
+         SharedState.selectedtrainno = lowerCase;
+      }else if(SharedState.data.currentStage===4){
+        SharedState.selecteddescription = lowerCase;
+      }
       this.actionProvider.handleActionGenerateFNM('故障通報');
 
     } else {
