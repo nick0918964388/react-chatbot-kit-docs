@@ -10,11 +10,13 @@ import YNOptions from "./widgets/options/YNOptions/YNOptions";
 import CarOptions from "./widgets/options/CarOptions/CarOptions";
 import CarSelector from "./widgets/Selector/CarSelector/CarSelector";
 import PlaceSelector from "./widgets/Selector/PlaceSelector/PlaceSelector";
+import GenFnm from "./widgets/Generate/GenFnm/GenFnm";
 
 const botName = "智慧助理";
 
 const config = {
   botName: botName,
+  loading:true,
   lang: "no",
   customStyles: {
     botMessageBox: {
@@ -51,10 +53,16 @@ const config = {
     airports: [],
     selectedcar: { iata: "請選擇", nameCompact: "請選擇" },
     selectedplace: { iata: "請選擇", nameCompact: "請選擇" },
+    selectedtrainno: "",
+    selecteddescription: "",
   },
   customComponents: {},
   widgets: [
     {
+      widgetName: "GenFnm",
+      widgetFunc: (props) => <GenFnm {...props} />,
+      mapStateToProps: ["selectedcar", "selectedplace","selectedtrainno","selecteddescription"],
+    },{
       widgetName: "carSelector",
       widgetFunc: (props) => <CarSelector {...props} />,
       mapStateToProps: ["selectedcar", "infoBox"],
@@ -95,7 +103,12 @@ const config = {
       widgetName: "widget",
       widgetFunc: (props) => <WidgetDocs {...props} />,
       mapStateToProps: ["gist", "infoBox"],
-    },
+    },,
+    {
+      widgetName: "genfnm",
+      widgetFunc: (props) => <GenFnm {...props} />,
+      mapStateToProps: ["gist", "infoBox"],
+    }
   ],
 };
 

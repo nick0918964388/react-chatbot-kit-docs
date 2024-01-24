@@ -16,9 +16,17 @@ class ActionProvider {
       if(ynresult){
         //故障通報開單確認
         messages = this.createChatBotMessage(
-          "故障通報已開單完成，單號：113-SR-00000213，請點此連結進入系統查看"
+          "故障通報已開單完成，單號：113-SR-00000213，請點此連結進入系統查看"          
         );
-        this.clearShareState();
+        this.clearShareState(); 
+        this.addMessageToBotState(messages);
+        messages = this.createChatBotMessage(
+          "請問你還需要其他的協助嗎?",{
+            withAvatar: true,
+            widget: "overview",
+          }
+        );
+        this.addMessageToBotState(messages);
       }else{
         //不開單,回到首頁
         this.handleDefault();
@@ -33,10 +41,8 @@ class ActionProvider {
           widget: "overview",
         }
       );
+      this.addMessageToBotState(messages);
     }
-    
-
-    this.addMessageToBotState(messages);
   };
   handleActionGenerateFNM = (id) => {
     SharedState.data.currentFunction = id;
@@ -107,6 +113,10 @@ class ActionProvider {
   clearShareState = () => {
     SharedState.data.currentFunction = "";
     SharedState.data.currentStage = 0;
+    SharedState.selectedcar = "";
+    SharedState.selectedplace = "";
+    SharedState.selectedtrainno = "";
+    SharedState.selecteddescription = "";
   };
   addMessageToBotState = (messages, newState) => {
     if (Array.isArray(messages)) {
