@@ -78,7 +78,7 @@ const config = {
     },{
       widgetName: "ynoption",
       widgetFunc: (props) => <YNOptions {...props} />,
-      mapStateToProps: ["gist"],
+      mapStateToProps: ["selectedcar", "selectedplace","selectedtrainno","selecteddescription"],
     },{
       widgetName: "caroption",
       widgetFunc: (props) => <CarOptions {...props} />,
@@ -102,11 +102,6 @@ const config = {
     {
       widgetName: "widget",
       widgetFunc: (props) => <WidgetDocs {...props} />,
-      mapStateToProps: ["gist", "infoBox"],
-    },,
-    {
-      widgetName: "genfnm",
-      widgetFunc: (props) => <GenFnm {...props} />,
       mapStateToProps: ["gist", "infoBox"],
     }
   ],

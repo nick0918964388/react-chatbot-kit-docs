@@ -9,23 +9,46 @@ class ActionProvider {
   getCurrentState = () => {
     return { id: SharedState.data.currentFunction, stage: SharedState.data.currentStage };
   };
+  
 
+
+
+
+  handleFnmCreateMessage = (fnmnumObj) =>{
+    let messages = this.createChatBotMessage(
+      `故障通報已開單完成，單號：${fnmnumObj.result}，請點此連結(http://tra.webtw.xyz:8888/maximo/?event=loadapp&value=zz_fnm&uniqleid=${fnmnumObj.ticketuid})進入系統查看`          
+    );
+    this.clearShareState(); 
+    this.addMessageToBotState(messages);
+    messages = this.createChatBotMessage(
+      "請問你還需要其他的協助嗎?",{
+        withAvatar: true,
+        widget: "overview",
+      }
+    );
+    this.addMessageToBotState(messages);
+
+  }
   handleMessageParserDocs = (ynresult) => {
     let messages
     if (SharedState.data.currentFunction === '故障通報' && ynresult) {      
       if(ynresult){
         //故障通報開單確認
         messages = this.createChatBotMessage(
-          "故障通報已開單完成，單號：113-SR-00000213，請點此連結進入系統查看"          
-        );
-        this.clearShareState(); 
-        this.addMessageToBotState(messages);
-        messages = this.createChatBotMessage(
-          "請問你還需要其他的協助嗎?",{
+          "開單中請等待.....",
+          {
             withAvatar: true,
-            widget: "overview",
-          }
+            widget: "GenFnm"
+          }          
         );
+        // this.clearShareState(); 
+        // this.addMessageToBotState(messages);
+        // messages = this.createChatBotMessage(
+        //   "請問你還需要其他的協助嗎?",{
+        //     withAvatar: true,
+        //     widget: "overview",
+        //   }
+        // );
         this.addMessageToBotState(messages);
       }else{
         //不開單,回到首頁

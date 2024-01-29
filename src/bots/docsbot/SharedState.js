@@ -24,7 +24,7 @@ const SharedState = {
             stage : 4 ,
             question : "故障概況：",
             widget : ""
-        }   
+        }
     ],
     selectedcar:"",
     selectedplace:"",
